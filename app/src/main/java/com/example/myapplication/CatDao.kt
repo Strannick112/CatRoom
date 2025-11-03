@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface CatDao {
@@ -25,4 +26,7 @@ interface CatDao {
 
     @Query("DELETE FROM Cat WHERE id=:id")
     fun deleteById(id: Int)
+
+    @Query("UPDATE Cat SET nick=:nick, age=:age, gender=:gender WHERE id=:id")
+    fun updateById(id: Int, nick: String, age: Int, gender: Boolean)
 }

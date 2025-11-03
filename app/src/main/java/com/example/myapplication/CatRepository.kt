@@ -21,4 +21,10 @@ class CatRepository(private val catDao: CatDao) {
             catDao.deleteById(id)
         }
     }
+
+    fun updateCat(id: Int, nick: String, age: Int, gender: Boolean){
+        coroutineScope.launch {
+            catDao.updateById(id, nick, age, gender)
+        }
+    }
 }

@@ -12,6 +12,7 @@ class CatViewModel(application: Application) : ViewModel() {
 
     val catList: LiveData<List<Cat>>
     private val repository: CatRepository
+    var catId by mutableStateOf(0)
     var catNick by mutableStateOf("")
     var catAge by mutableStateOf(0)
     var catGender by mutableStateOf(true)
@@ -21,6 +22,10 @@ class CatViewModel(application: Application) : ViewModel() {
         val catDao = catDb.catDao()
         repository = CatRepository(catDao)
         catList = repository.catList
+    }
+
+    fun changeId(value: String){
+        catId = value.toIntOrNull() ?: catId
     }
 
     fun changeName(value: String){
@@ -42,6 +47,15 @@ class CatViewModel(application: Application) : ViewModel() {
                 age = catAge,
                 gender = catGender
             )
+        )
+    }
+
+    fun updateCat(){
+        repository.updateCat(
+            id = catId,
+            nick = catNick,
+            age = catAge,
+            gender = catGender
         )
     }
 
