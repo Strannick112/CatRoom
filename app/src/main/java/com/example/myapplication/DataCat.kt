@@ -12,6 +12,8 @@ abstract class DataCat: RoomDatabase() {
 
     abstract fun breedDao(): BreedDao
 
+    abstract fun breedWithCatsDao(): BreedWithCatsDao
+
     // реализуем синглтон
     companion object {
         private var INSTANCE: DataCat? = null

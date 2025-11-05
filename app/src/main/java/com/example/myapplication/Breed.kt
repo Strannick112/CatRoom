@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Breed (
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val breedId: Int = 0,
     @ColumnInfo val title: String,
     @ColumnInfo val description: String
 )

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Cat(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val catId: Int = 0,
     @ColumnInfo val nick: String,
     @ColumnInfo val age: Int,
     @ColumnInfo val gender: Boolean

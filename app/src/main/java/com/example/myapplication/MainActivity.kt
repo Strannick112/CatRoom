@@ -34,7 +34,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         setContent {
             Main()
         }
@@ -58,16 +57,25 @@ fun Main() {
             BreedViewModelFactory(LocalContext.current.applicationContext as Application)
         )
 
+        val breedWithCatsViewModel: BreedWithCatsViewModel = viewModel(
+            it,
+            "BreedWithCatsViewModel",
+            BreedWithCatsVMFactory(LocalContext.current.applicationContext as Application)
+        )
+
         var page: Int by remember { mutableStateOf(0) }
         Column() {
             Row() {
                 Button(onClick = { page = 0 }) { Text("Cats") }
                 Button(onClick = { page = 1 }) { Text("Breed") }
+                Button(onClick = { page = 2 }) { Text("B.vsC.") }
             }
             if (page == 0)
                 CatsPanel(catViewModel)
             if(page == 1)
                 BreedsPanel(breedViewModel)
+            if(page == 2)
+                BreedWithCatsPanel(breedWithCatsViewModel)
         }
     }
 }
@@ -100,6 +108,31 @@ fun BreedsPanel(vm: BreedViewModel = viewModel()){
     }
 }
 
+@Composable
+fun BreedWithCatsPanel(vm: BreedWithCatsViewModel = viewModel()){
+    val breedWithCatsList by vm.breedWithCatsList.observeAsState(listOf())
+    Column {
+//        AddPanel(listOf(
+//            TableInfo(vm.catId.toString(), "Id", {vm.changeId(it)}),
+//            TableInfo(vm.catNick, "Name", {vm.changeName(it)}),
+//            TableInfo(vm.catAge.toString(), "Age", onValueChange = {vm.changeAge(it)})
+//        ), { vm.updateCat() }, { vm.addCat() })
+
+        CatList(cats = breedWithCatsList, delete = { })
+    }
+}
+
+@Composable
+fun BreedWithCatsList(breedWithCats:List<BreedWithCats>) {
+    LazyColumn(Modifier.fillMaxWidth()) {
+        item{ TitleRow("Id", "Name", "Age")}
+        items(breedWithCats) { breedWithCat ->
+            JustRow(cat.catId.toString(), cat.nick, cat.age.toString(), delete = { })
+        }
+    }
+}
+
+
 data class TableInfo(val value: String, val header: String, val onValueChange: (String)->Unit)
 
 @Composable
@@ -129,7 +162,7 @@ fun CatList(cats:List<Cat>, delete:(Int)->Unit) {
     LazyColumn(Modifier.fillMaxWidth()) {
         item{ TitleRow("Id", "Name", "Age")}
         items(cats) { cat ->
-            JustRow(cat.id.toString(), cat.nick, cat.age.toString(), delete = {delete(cat.id)})
+            JustRow(cat.catId.toString(), cat.nick, cat.age.toString(), delete = {delete(cat.catId)})
         }
     }
 }
@@ -139,7 +172,7 @@ fun BreedList(breeds:List<Breed>, delete:(Int)->Unit) {
     LazyColumn(Modifier.fillMaxWidth()) {
         item{ TitleRow("Id", "Title", "Desc")}
         items(breeds) { breed ->
-            JustRow(breed.id.toString(), breed.title, breed.description, delete = {delete(breed.id)})
+            JustRow(breed.breedId.toString(), breed.title, breed.description, delete = {delete(breed.breedId)})
         }
     }
 }
