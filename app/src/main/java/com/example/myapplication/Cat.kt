@@ -9,5 +9,6 @@ data class Cat(
     @PrimaryKey(autoGenerate = true) val catId: Int = 0,
     @ColumnInfo val nick: String,
     @ColumnInfo val age: Int,
-    @ColumnInfo val gender: Boolean
+    @ColumnInfo val gender: Boolean,
+    @ColumnInfo val catBreedId: Int
 )

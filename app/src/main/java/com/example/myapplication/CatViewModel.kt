@@ -16,6 +16,7 @@ class CatViewModel(application: Application) : ViewModel() {
     var catNick by mutableStateOf("")
     var catAge by mutableStateOf(0)
     var catGender by mutableStateOf(true)
+    var catBreedId by mutableStateOf(0)
 
     init {
         val catDb = DataCat.getInstance(application)
@@ -26,6 +27,10 @@ class CatViewModel(application: Application) : ViewModel() {
 
     fun changeId(value: String){
         catId = value.toIntOrNull() ?: catId
+    }
+
+    fun changeBreedId(value: String){
+        catBreedId = value.toIntOrNull() ?: catBreedId
     }
 
     fun changeName(value: String){
@@ -45,7 +50,8 @@ class CatViewModel(application: Application) : ViewModel() {
             Cat(
                 nick = catNick,
                 age = catAge,
-                gender = catGender
+                gender = catGender,
+                catBreedId = catBreedId
             )
         )
     }
@@ -55,7 +61,8 @@ class CatViewModel(application: Application) : ViewModel() {
             id = catId,
             nick = catNick,
             age = catAge,
-            gender = catGender
+            gender = catGender,
+            catBreedId = catBreedId
         )
     }
 

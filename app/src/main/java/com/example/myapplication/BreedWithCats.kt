@@ -7,6 +7,6 @@ data class BreedWithCats (
     @Embedded val breed: Breed,
     @Relation(
         parentColumn = "breedId",
-        entityColumn = "catId"
+        entityColumn = "catBreedId"
     ) val cats: List<Cat>
 )

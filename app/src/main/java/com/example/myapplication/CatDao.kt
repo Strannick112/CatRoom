@@ -27,6 +27,6 @@ interface CatDao {
     @Query("DELETE FROM Cat WHERE catId=:id")
     fun deleteById(id: Int)
 
-    @Query("UPDATE Cat SET nick=:nick, age=:age, gender=:gender WHERE catId=:id")
-    fun updateById(id: Int, nick: String, age: Int, gender: Boolean)
+    @Query("UPDATE Cat SET nick=:nick, age=:age, gender=:gender, catBreedId=:catBreedId WHERE catId=:id")
+    fun updateById(id: Int, nick: String, age: Int, gender: Boolean, catBreedId: Int)
 }

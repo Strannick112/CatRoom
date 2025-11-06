@@ -8,6 +8,6 @@ import androidx.room.Transaction
 @Dao
 interface BreedWithCatsDao {
     @Transaction
-    @Query("SELECT * FROM Cat")
+    @Query("SELECT * FROM Breed")
     fun getAll(): LiveData<List<BreedWithCats>>
 }

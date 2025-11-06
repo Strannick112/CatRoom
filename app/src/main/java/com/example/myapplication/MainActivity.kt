@@ -87,8 +87,9 @@ fun CatsPanel(vm: CatViewModel = viewModel()){
         AddPanel(listOf(
             TableInfo(vm.catId.toString(), "Id", {vm.changeId(it)}),
             TableInfo(vm.catNick, "Name", {vm.changeName(it)}),
-            TableInfo(vm.catAge.toString(), "Age", onValueChange = {vm.changeAge(it)})
-        ), { vm.updateCat() }, { vm.addCat() })
+            TableInfo(vm.catAge.toString(), "Age", onValueChange = {vm.changeAge(it)}),
+            TableInfo(vm.catBreedId.toString(), "BreedId", onValueChange = {vm.changeBreedId(it)})
+        ),{ vm.addCat() }, { vm.updateCat() })
 
         CatList(cats = catList, delete = {vm.deleteUser(it)})
     }
@@ -118,16 +119,18 @@ fun BreedWithCatsPanel(vm: BreedWithCatsViewModel = viewModel()){
 //            TableInfo(vm.catAge.toString(), "Age", onValueChange = {vm.changeAge(it)})
 //        ), { vm.updateCat() }, { vm.addCat() })
 
-        CatList(cats = breedWithCatsList, delete = { })
+        BreedWithCatsList(breedWithCats = breedWithCatsList)
     }
 }
 
 @Composable
 fun BreedWithCatsList(breedWithCats:List<BreedWithCats>) {
     LazyColumn(Modifier.fillMaxWidth()) {
-        item{ TitleRow("Id", "Name", "Age")}
+        item{ TitleRow("Breed", "Name")}
         items(breedWithCats) { breedWithCat ->
-            JustRow(cat.catId.toString(), cat.nick, cat.age.toString(), delete = { })
+            breedWithCat.cats.forEach { cat ->
+                JustRow(breedWithCat.breed.title, cat.nick, delete = { })
+            }
         }
     }
 }
@@ -160,9 +163,9 @@ fun AddPanel(tableInfoes: List<com.example.myapplication.TableInfo>,
 @Composable
 fun CatList(cats:List<Cat>, delete:(Int)->Unit) {
     LazyColumn(Modifier.fillMaxWidth()) {
-        item{ TitleRow("Id", "Name", "Age")}
+        item{ TitleRow("Id", "Name", "Age", "BreedId")}
         items(cats) { cat ->
-            JustRow(cat.catId.toString(), cat.nick, cat.age.toString(), delete = {delete(cat.catId)})
+            JustRow(cat.catId.toString(), cat.nick, cat.age.toString(), cat.catBreedId.toString(), delete = {delete(cat.catId)})
         }
     }
 }

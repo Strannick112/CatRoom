@@ -22,9 +22,9 @@ class CatRepository(private val catDao: CatDao) {
         }
     }
 
-    fun updateCat(id: Int, nick: String, age: Int, gender: Boolean){
+    fun updateCat(id: Int, nick: String, age: Int, gender: Boolean, catBreedId: Int){
         coroutineScope.launch {
-            catDao.updateById(id, nick, age, gender)
+            catDao.updateById(id, nick, age, gender, catBreedId)
         }
     }
 }
